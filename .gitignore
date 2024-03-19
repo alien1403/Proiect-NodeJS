@@ -124,7 +124,9 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
+node_modules
+database.sqlite
+database_development.sqlite
 # yarn v2
 .yarn/cache
 .yarn/unplugged
