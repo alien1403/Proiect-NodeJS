@@ -11,6 +11,30 @@ const DoctorController = {
     }
   },
 
+  async pagination(req, res){
+    try {
+      const { page = 1, pageSize = 10 } = req.query;
+      const offset = (page - 1) * pageSize;
+
+      const doctors = await Doctor.findAndCountAll({
+        limit: parseInt(pageSize),
+        offset: parseInt(offset),
+      });
+
+      const totalPages = Math.ceil(doctors.count / pageSize);
+
+      res.json({
+        currentPage: parseInt(page),
+        totalPages: totalPages,
+        totalDoctors: doctors.count,
+        doctors: doctors.rows,
+      });
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
   async filterDoctors(req, res) {
     console.log("DA")
     try {
