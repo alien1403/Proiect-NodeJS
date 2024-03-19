@@ -1,4 +1,4 @@
-const { Patient } = require('../models');
+const { Patient, Appointment } = require('../models');
 
 const PatientController = {
   async getAllPatients(req, res) {
@@ -39,7 +39,13 @@ const PatientController = {
   async updatePatient(req, res) {
     const { id } = req.params;
     const { name, email, password } = req.body;
+    const userId = req.user.id.toString();
+    console.log(userId)
+    console.log(id)
     try {
+      if (userId !== id) {
+        return res.status(403).json({ message: 'You are not authorized to perform this action' });
+      }
       const patient = await Patient.findByPk(id);
       if (!patient) {
         return res.status(404).json({ message: 'Patient not found' });
@@ -48,6 +54,24 @@ const PatientController = {
       res.json(patient);
     } catch (error) {
       console.error('Error updating patient:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+  async deleteAppointment(req, res) {
+    const { id } = req.params;
+    const userId = req.user.id
+    try {
+      const appointment = await Appointment.findByPk(id);
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+      if (appointment.patientId !== userId) {
+        return res.status(403).json({ message: 'You are not authorized to perform this action' });
+      }
+      await appointment.destroy();
+      res.json({ message: 'Appointment deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   },
