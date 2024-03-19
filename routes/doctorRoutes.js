@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const DoctorController = require('../controllers/doctorController');
+const authMiddleware = require('../config/authMiddleware');
 
-// Rute pentru doctori
 router.get('/', DoctorController.getAllDoctors);
 router.get('/:id', DoctorController.getDoctorById);
 router.post('/', DoctorController.addDoctor);
-router.put('/:id', DoctorController.updateDoctor);
-router.delete('/:id', DoctorController.deleteDoctor);
+router.put('/:id', authMiddleware, DoctorController.updateDoctor);
+router.delete('/:id', authMiddleware,DoctorController.deleteDoctor);
+router.delete('/doctorAppointment/:id', authMiddleware, DoctorController.deleteAppointment);
 
 module.exports = router;

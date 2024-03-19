@@ -1,4 +1,4 @@
-const { Appointment } = require('../models');
+const { Appointment, Doctor, Patient } = require('../models');
 
 const AppointmentController = {
   async getAllAppointments(req, res) {
@@ -27,6 +27,17 @@ const AppointmentController = {
 
   async addAppointment(req, res) {
     const { dateTime, doctorId, patientId } = req.body;
+
+    const doctor = await Doctor.findByPk(doctorId);
+    if(!doctor){
+      return res.status(404).json({ message: "Doctor not found "})
+    }
+
+    const patient = await Patient.findByPk(patientId);
+    if(!patient){
+      return res.status(404).json({ message: "Patient not found "})
+    }
+
     try {
       const newAppointment = await Appointment.create({ dateTime, doctorId, patientId });
       res.status(201).json(newAppointment);
