@@ -11,6 +11,29 @@ const DoctorController = {
     }
   },
 
+  async filterDoctors(req, res) {
+    console.log("DA")
+    try {
+      let doctors;
+      const { name, specialization } = req.query;
+
+      if (name && specialization) {
+          doctors = await Doctor.findAll({ where: { name, specialization } });
+      } else if (name) {
+          doctors = await Doctor.findAll({ where: { name } });
+      } else if (specialization) {
+          doctors = await Doctor.findAll({ where: { specialization } });
+      } else {
+          doctors = await Doctor.findAll();
+      }
+
+      res.json(doctors);
+    } catch (error) {
+      console.error('Error filtering doctors: ', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
   async getDoctorById(req, res) {
     const { id } = req.params;
     try {
@@ -71,6 +94,27 @@ const DoctorController = {
     } catch (error) {
       console.error('Error deleting appointment:', error);
       res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  async sortDoctors(req, res){
+    try{
+      let doctors
+      if(req.query.sort === "name")
+      {
+        doctors = await Doctor.findAll({ order: [[ 'name', 'ASC']]})
+      }
+      else if(req.query.sort === "specialization")
+      {
+        doctors = await Doctor.findAll({ order: [[ 'specialization', 'ASC']]})
+      }
+      else{
+        doctors = await Doctor.findAll();
+      }
+      res.json(doctors)
+    }catch(error){
+      console.error('Error fetching doctors: ', error)
+      res.status(500).json({ message: 'Internal server error' })
     }
   },
   async deleteDoctor(req, res) {

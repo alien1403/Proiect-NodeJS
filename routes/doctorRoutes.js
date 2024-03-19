@@ -3,6 +3,8 @@ const router = express.Router();
 const DoctorController = require('../controllers/doctorController');
 const authMiddleware = require('../config/authMiddleware');
 
+router.get('/filter', DoctorController.filterDoctors);
+router.get('/sort', DoctorController.sortDoctors)
 router.get('/', DoctorController.getAllDoctors);
 router.get('/:id', DoctorController.getDoctorById);
 router.post('/', DoctorController.addDoctor);
