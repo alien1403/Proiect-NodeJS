@@ -8,6 +8,6 @@ router.get('/:id', DoctorController.getDoctorById);
 router.post('/', DoctorController.addDoctor);
 router.put('/:id', authMiddleware, DoctorController.updateDoctor);
 router.delete('/:id', authMiddleware,DoctorController.deleteDoctor);
-router.delete('/doctorAppointment/:id', authMiddleware, DoctorController.deleteAppointment);
+router.delete('/appointments/:id', authMiddleware, DoctorController.deleteAppointment);
 
 module.exports = router;
