@@ -3,6 +3,7 @@ const sequelize = require('./database');
 const doctorRoutes = require('./routes/doctorRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
+const authRoutes = require('./routes/authRoutes')
 const bcrypt = require('bcryptjs')
 require('dotenv').config();
 const authMiddleware = require('./config/authMiddleware');
@@ -44,6 +45,7 @@ app.post('/login', async (req, res) => {
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/auth', authRoutes);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
