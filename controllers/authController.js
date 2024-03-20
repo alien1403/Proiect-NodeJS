@@ -24,11 +24,11 @@ const authController = {
         return res.status(400).json({ message: 'Email already exists' });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      // const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = userType === 'doctor' ?
-        await db.Doctor.create({ name, email, password: hashedPassword, specialization }) :
-        await db.Patient.create({ name, email, password: hashedPassword });
+        await db.Doctor.create({ name, email, password, specialization }) :
+        await db.Patient.create({ name, email, password });
 
       const token = jwt.sign({ userId: newUser.id, userType }, JWT_SECRET);
 
