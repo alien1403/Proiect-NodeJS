@@ -148,6 +148,7 @@ const authMiddleware = require('../config/middleware/authMiddleware');
 
 router.get('/', PatientController.getAllPatients);
 router.get('/:id', PatientController.getPatientById);
+router.get('/appointments/:id', PatientController.getPatientAppointments);
 router.post('/', PatientController.addPatient);
 router.put('/:id', authMiddleware, PatientController.updatePatient);
 router.delete('/:id', authMiddleware, PatientController.deletePatient);

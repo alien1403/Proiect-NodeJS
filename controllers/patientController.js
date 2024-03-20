@@ -91,6 +91,22 @@ const PatientController = {
       console.error('Error deleting patient:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
+  },
+  async getPatientAppointments(req, res) {
+    const { id } = req.params;
+    console.log("DA")
+    try {
+      const patient = await Patient.findByPk(id);
+      if (!patient) {
+        return res.status(404).json({ message: 'Patient not found' });
+      }
+      const appointments = await Appointment.findAll({ where: { patientId: id } });
+
+      res.json(appointments);
+    } catch (error) {
+      console.error('Error fetching patient appointments:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   }
 };
 
