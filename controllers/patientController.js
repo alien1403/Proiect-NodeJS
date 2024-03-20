@@ -40,8 +40,6 @@ const PatientController = {
     const { id } = req.params;
     const { name, email, password } = req.body;
     const userId = req.user.id.toString();
-    console.log(userId)
-    console.log(id)
     try {
       if (userId !== id) {
         return res.status(403).json({ message: 'You are not authorized to perform this action' });
@@ -78,7 +76,11 @@ const PatientController = {
 
   async deletePatient(req, res) {
     const { id } = req.params;
+    const userId = req.user.id.toString();
     try {
+      if (userId !== id) {
+        return res.status(403).json({ message: 'You are not authorized to perform this action' });
+      }
       const patient = await Patient.findByPk(id);
       if (!patient) {
         return res.status(404).json({ message: 'Patient not found' });

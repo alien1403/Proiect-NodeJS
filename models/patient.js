@@ -16,16 +16,13 @@ module.exports = (sequelize, DataTypes) => {
 
     static async deleteWithAppointments(patientId) {
       try {
-          // Găsim pacientul în baza de date
           const patient = await this.findByPk(patientId);
           if (!patient) {
               throw new Error('Patient not found');
           }
   
-          // Ștergem toate programările asociate pacientului
           await this.sequelize.models.Appointment.destroy({ where: { patientId } });
   
-          // Ștergem pacientul
           await patient.destroy();
   
           return true;

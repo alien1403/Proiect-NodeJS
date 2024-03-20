@@ -95,6 +95,7 @@ const DoctorController = {
       if (!doctor) {
         return res.status(404).json({ message: 'Doctor not found' });
       }
+      
       await doctor.update({ name, email, password, specialization });
       res.json(doctor);
     } catch (error) {
@@ -143,7 +144,11 @@ const DoctorController = {
   },
   async deleteDoctor(req, res) {
     const { id } = req.params;
+    const userId = req.user.id.toString();
     try {
+      if (userId !== id) {
+        return res.status(403).json({ message: 'You are not authorized to perform this action' });
+      }
       const doctor = await Doctor.findByPk(id);
       if (!doctor) {
         return res.status(404).json({ message: 'Doctor not found' });

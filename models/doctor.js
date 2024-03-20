@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       set(value) {
-        const hashedPassword = bcrypt.hash(value, 10);
+        const hashedPassword = bcrypt.hashSync(value, 10);
         this.setDataValue('password', hashedPassword);
       }
     },
@@ -43,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Doctor',
   });
-
   Doctor.beforeDestroy(async (doctor, options) => {
     try {
       await sequelize.models.Appointment.destroy({ where: { doctorId: doctor.id } });
