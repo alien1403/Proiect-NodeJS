@@ -139,6 +139,9 @@ npm start
     - Serverul validează solicitarea și șterge consultația din baza de date.
     - Returnează un răspuns către client pentru a confirma ștergerea cu succes a consultației.
 
+## Diagrama Bazei de Date
+
+![alt text](./img/diagram.png)
 
 ## Contact
 

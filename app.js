@@ -7,6 +7,8 @@ const authMiddleware = require('./config/middleware/authMiddleware');
 const db = require('./models')
 const bcrypt = require('bcryptjs')
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./swaggerOptions');
 
 app.use(express.json());
 
@@ -38,5 +40,6 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ userId: user.id }, JWT_SECRET);
     res.json({ token });
   });
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 module.exports = app;
