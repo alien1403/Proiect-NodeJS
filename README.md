@@ -120,7 +120,7 @@ npm start
    - Serverul validează informațiile primite și salvează programarea în baza de date.
     - Returnează un răspuns către client pentru a confirma crearea cu succes a programării.
 
-### Ștergerea unei Consultații
+### 2. Ștergerea unei Consultații
 1. **Autentificare Utilizator**:
 
     - Accesați endpoint-ul **/signin** și furnizați adresa de email și parola pentru a vă autentifica în sistem.
