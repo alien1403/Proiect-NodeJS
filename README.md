@@ -119,6 +119,27 @@ npm start
 6. **Confirmarea Programării**:
    - Serverul validează informațiile primite și salvează programarea în baza de date.
     - Returnează un răspuns către client pentru a confirma crearea cu succes a programării.
+
+### Ștergerea unei Consultații
+1. **Autentificare Utilizator**:
+
+    - Accesați endpoint-ul **/signin** și furnizați adresa de email și parola pentru a vă autentifica în sistem.
+    - Obțineți un token JWT care va fi folosit pentru autentificare în alte request-uri.
+2. **Accesarea Listei de Consultații**:
+
+    - Accesați endpoint-ul **/api/appointments** pentru a obține lista de consultații disponibile.
+    - Identificați consultația pe care doriți să o ștergeți, bazându-vă pe informațiile primite.
+3. **Verificarea Accesului la Consultație**:
+
+    - Verificați dacă utilizatorul autentificat are dreptul de a șterge această consultație.
+    -Dacă utilizatorul este un doctor și consultația aparține lui sau dacă este un pacient și este asociat cu acea consultație, permiteți ștergerea.
+4. **Ștergerea Consultației**:
+
+    - Trimiteți un request DELETE către endpoint-ul **/api/appointments/:id**, unde **:id** este identificatorul unic al consultației pe care doriți să o ștergeți.
+    - Serverul validează solicitarea și șterge consultația din baza de date.
+    - Returnează un răspuns către client pentru a confirma ștergerea cu succes a consultației.
+
+
 ## Contact
 
 Pentru întrebări sau feedback, mă poți contacta prin [email](mailto:hanghicelrazvanmihai@gmail.com) sau [LinkedIn](https://www.linkedin.com/in/razvanmihaihanghicel/).
