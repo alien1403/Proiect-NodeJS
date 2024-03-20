@@ -16,7 +16,7 @@ npm install
 3. **Configurează Baza de Date**: 
    - Pentru SQLite, nu este nevoie să creezi manual o bază de date. Aceasta va fi creată automat când vei rula migrările.
    - Asigură-te că ai SQLite instalat pe sistemul tău.
-   - În fișierul `config/database.js`, verifică că setările de conexiune sunt configurează pentru SQLite, similar cu exemplul de mai jos:
+   - În fișierul `database.js`, verifică că setările de conexiune sunt configurează pentru SQLite, similar cu exemplul de mai jos:
    
      ```javascript
      module.exports = {
