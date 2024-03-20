@@ -3,7 +3,13 @@ const { Appointment, Doctor, Patient } = require('../models');
 const AppointmentController = {
   async getAllAppointments(req, res) {
     try {
-      const appointments = await Appointment.findAll();
+      const appointments = await Appointment.findAll({
+        include: [
+          { model: Doctor, as: 'Doctor', attributes: { exclude: ['password'] } },
+          { model: Patient, as: 'Patient', attributes: { exclude: ['password'] } }
+        ],
+        attributes: { exclude: ['doctorId', 'patientId'] }
+      });
       res.json(appointments);
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -14,7 +20,13 @@ const AppointmentController = {
   async getAppointmentById(req, res) {
     const { id } = req.params;
     try {
-      const appointment = await Appointment.findByPk(id);
+      const appointment = await Appointment.findByPk(id, {
+        include: [
+          { model: Doctor, as: 'Doctor', attributes: { exclude: ['password'] } },
+          { model: Patient, as: 'Patient', attributes: { exclude: ['password'] } }
+        ],
+        attributes: { exclude: ['doctorId', 'patientId'] }
+      });
       if (!appointment) {
         return res.status(404).json({ message: 'Appointment not found' });
       }
@@ -40,7 +52,22 @@ const AppointmentController = {
 
     try {
       const newAppointment = await Appointment.create({ dateTime, doctorId, patientId });
-      res.status(201).json(newAppointment);
+      const appointmentWithDetails = {
+        id: newAppointment.id,
+        dateTime: newAppointment.dateTime,
+        doctor: {
+          id: doctor.id,
+          name: doctor.name,
+          email: doctor.email,
+          specialization: doctor.specialization
+        },
+        patient: {
+          id: patient.id,
+          name: patient.name,
+          email: patient.email,
+        }
+      };
+      res.status(201).json(appointmentWithDetails);
     } catch (error) {
       console.error('Error adding appointment:', error);
       res.status(500).json({ message: 'Internal server error' });
