@@ -6,7 +6,7 @@ Acest proiect reprezintă backend-ul unei aplicații web pentru gestionarea unei
 
 1. **Clonează Repositoriul**: 
 ```bash
-git clone [<url_repositoriu>](https://github.com/alien1403/Proiect-NodeJS.git)"
+git clone https://github.com/alien1403/Proiect-NodeJS.git"
 cd Proiect-NodeJS
 ```
 2. **Instalează Dependințele**: 
