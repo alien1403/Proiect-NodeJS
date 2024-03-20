@@ -175,6 +175,7 @@ const validatePayload = require('../config/middleware/validatePayload')
 router.get('/filter', DoctorController.filterDoctors);
 router.get('/sort', DoctorController.sortDoctors)
 router.get('/pagination', DoctorController.pagination)
+router.get('/appointments/:id', DoctorController.getDoctorAppointments)
 router.get('/', DoctorController.getAllDoctors);
 router.get('/:id', DoctorController.getDoctorById);
 router.post('/', validatePayload, DoctorController.addDoctor);

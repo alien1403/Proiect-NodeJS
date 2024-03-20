@@ -159,6 +159,21 @@ const DoctorController = {
       console.error('Error deleting doctor:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
+  },
+  async getDoctorAppointments(req, res) {
+    const { id } = req.params;
+    try {
+      const doctor = await Doctor.findByPk(id);
+      if (!doctor) {
+        return res.status(404).json({ message: 'Doctor not found' });
+      }
+      const appointments = await Appointment.findAll({ where: { doctorId: id } });
+
+      res.json(appointments);
+    } catch (error) {
+      console.error('Error fetching doctor appointments:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   }
 };
 

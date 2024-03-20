@@ -143,6 +143,10 @@ npm start
 
 ![alt text](./img/diagram.png)
 
+## Flow Chart Diagram
+
+![alt text](./img/flow_chart_diagram.png)
+
 ## Contact
 
 Pentru întrebări sau feedback, mă poți contacta prin [email](mailto:hanghicelrazvanmihai@gmail.com) sau [LinkedIn](https://www.linkedin.com/in/razvanmihaihanghicel/).
